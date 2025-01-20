@@ -1,0 +1,5 @@
+docker build . -t log-output:1.0
+
+k3d image import log-output:1.0
+
+kubectl create deployment log-output-dep --image=log-output:1.0
