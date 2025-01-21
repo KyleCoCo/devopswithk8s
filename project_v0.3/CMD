@@ -2,7 +2,18 @@ docker build . -t fastapi-app:0.2
 
 k3d image import fastapi-app:0.2
 
-kubectl create deployment fastapi-app --image=fastapi-app:0.2
+# kubectl create deployment fastapi-app --image=fastapi-app:0.2
 
-kubectl port-forward fastapi-app-dep-c4f447dc9-5bwgx 8000:8000
+# kubectl port-forward fastapi-app-dep-c4f447dc9-5bwgx 8000:8000
 
+
+k3d cluster delete
+
+k3d cluster create --port 8082:30080@agent:0 8083:320081@agent:0 -p 8081:80@loadbalancer --agents 2
+
+
+kubectl apply -f ./manifests/deployment.yaml
+
+kubectl apply -f ./manifests/service.yaml
+
+ curl http://127.0.0.1:8083/
