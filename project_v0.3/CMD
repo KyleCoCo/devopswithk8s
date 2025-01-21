@@ -3,3 +3,6 @@ docker build . -t fastapi-app:0.2
 k3d image import fastapi-app:0.2
 
 kubectl create deployment fastapi-app --image=fastapi-app:0.2
+
+kubectl port-forward fastapi-app-dep-c4f447dc9-5bwgx 8000:8000
+
