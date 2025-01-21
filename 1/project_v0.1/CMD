@@ -1,0 +1,5 @@
+docker build . -t fastapi-app:0.1
+
+k3d image import fastapi-app:0.1
+
+kubectl create deployment fastapi-app --image=fastapi-app:0.1
