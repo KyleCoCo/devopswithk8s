@@ -5,19 +5,26 @@ metadata:
 spec:
   rules:
   - http:
-        paths:
-          - path: /status
-            pathType: Prefix
-            backend:
-              service:
-                name: log-output-svc
-                port:
-                  number: 2346
-          - path: /pingpong
-            pathType: Prefix
-            backend:
-              service:
-                name: ping-pong-svc
-                port:
-                  number: 2348
+      paths:
+      - path: /readlog
+        pathType: Prefix
+        backend:
+          service:
+            name: log-output-svc
+            port:
+              number: 2350
+      - path: /status
+        pathType: Prefix
+        backend:
+          service:
+            name: log-output-svc
+            port:
+              number: 2350
+      - path: /pingpong
+        pathType: Prefix
+        backend:
+          service:
+            name: ping-pong-svc
+            port:
+              number: 2348
 

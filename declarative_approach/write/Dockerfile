@@ -15,6 +15,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 ENV PYTHONUNBUFFERED=1
 
 # Expose port 8000 for FastAPI
-EXPOSE 8000
+EXPOSE 8001
 
-CMD ["python3", "-u", "random_string_generator.py"]
+CMD ["python3", "-u", "write_log.py"]
