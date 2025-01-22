@@ -1,0 +1,17 @@
+docker build . -t ping-pong:1.0
+
+k3d image import ping-pong:1.0
+
+kubectl apply -f manifests/
+
+echo "Slept for 5 seconds!"
+
+sleep 5
+
+echo "Wake up!"
+
+curl 127.0.0.1:8081/pingpong
+
+curl 127.0.0.1:8081/pingpong
+
+curl 127.0.0.1:8081/pingpong
