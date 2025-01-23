@@ -1,8 +1,11 @@
-docker build . -t ping-pong:1.0
+docker build . -t ping-pong:1.2
 
-k3d image import ping-pong:1.0
+k3d image import ping-pong:1.2
 
-kubectl apply -f manifests/
+
+kubectl delete deployments.apps ping-pong-dep
+
+kubectl apply  -R -f manifests/
 
 echo "Slept for 5 seconds!"
 

@@ -15,12 +15,17 @@ spec:
       volumes: # Define volume
         - name: shared-image
           emptyDir: {}
+        - name: shared-pingpong-image
+          persistentVolumeClaim:
+            claimName: ping-pong-pv-claim
       containers:
         - name: read-log
-          image: read-log:1.2
+          image: read-log:1.4
           volumeMounts: # Mount volume
           - name: shared-image
             mountPath: /usr/log/
+          - name: shared-pingpong-image
+            mountPath: /usr/log/pingpong/
         - name: write-log
           image: write-log:1.1
           volumeMounts: # Mount volume

@@ -16,11 +16,10 @@ app = FastAPI()
 async def get_status():
     global random_string
     current_time = get_current_time() 
-    # Return the status as JSON
-    return JSONResponse(content={
-        "timestamp": current_time,
-        "random_string": random_string
-    })
+    pingpong_count = ""
+    with open(pingpong_count_file, 'r') as file:
+        pingpong_count = file.read()
+    return get_out_put(current_time) + ".\nPing / Pongs: " + pingpong_count
 
 
 @app.get("/readlog")
@@ -48,6 +47,8 @@ random_string = ""
 log_file = "/usr/log/log.txt"
 # Create any missing directories
 os.makedirs(os.path.dirname(log_file), exist_ok=True)
+pingpong_count_file = "/usr/log/pingpong/count.txt"
+os.makedirs(os.path.dirname(pingpong_count_file), exist_ok=True)
 
 def generate_random_string():
     """Generates a random UUID-style string."""
