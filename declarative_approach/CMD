@@ -1,8 +1,8 @@
-docker build ./read -t read-log:1.4
+docker build ./read -t read-log:1.5
 
 docker build ./write -t write-log:1.1
 
-k3d image import read-log:1.4
+k3d image import read-log:1.5
 
 k3d image import write-log:1.1
 

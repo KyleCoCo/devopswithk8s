@@ -1,3 +1,4 @@
+import requests
 import random
 import string
 import time
@@ -11,14 +12,19 @@ import uvicorn
 import os
 
 app = FastAPI()
+# PINGPONG_GET = "http://127.0.0.1:8081/pingpong"
+PINGPONG_GET = "http://ping-pong-svc:2348/pingpong"
 
 @app.get("/status")
 async def get_status():
     global random_string
     current_time = get_current_time() 
     pingpong_count = ""
-    with open(pingpong_count_file, 'r') as file:
-        pingpong_count = file.read()
+    # Read content from a pod
+    response = requests.get(PINGPONG_GET, stream=True)
+    if response.status_code == 200:
+        pingpong_count = response.content.decode()
+    pingpong_count = pingpong_count[6:]
     return get_out_put(current_time) + ".\nPing / Pongs: " + pingpong_count
 
 

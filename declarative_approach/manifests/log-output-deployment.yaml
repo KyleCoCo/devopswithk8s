@@ -20,7 +20,7 @@ spec:
             claimName: ping-pong-pv-claim
       containers:
         - name: read-log
-          image: read-log:1.4
+          image: read-log:1.5
           volumeMounts: # Mount volume
           - name: shared-image
             mountPath: /usr/log/
