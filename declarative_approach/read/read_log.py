@@ -59,13 +59,45 @@ def get_current_time():
     return current_time
 
 
+def get_out_put(current_time):
+    global random_string
+    return f"{current_time}: {random_string}"
+
+
+def log_output():
+    try: 
+        # Output the random string every 5 seconds with a timestamp
+        while True:
+            # Get the current time in ISO 8601 format with milliseconds
+            current_time = get_current_time() 
+            # Print the timestamp and random string
+            content = get_out_put(current_time)          
+            print(content)
+            # Open the file in write mode ('w') or append mode ('a') if you don't want to overwrite
+            with open(log_file, 'a') as file:
+                file.write(f"{content}\n")
+            # Wait for 5 seconds
+            time.sleep(5)
+    except Exception as e:
+        print(f"Error occurred: {e}")
+
+
 def start_fastapi():
     """Start the FastAPI HTTP server."""
     uvicorn.run(app, host="0.0.0.0", port=8000)
 
 
+# @app.on_event("startup")
+# async def startup_event():
+#     print("Starting periodic task thread...")
+#     thread.start()  # Start the background thread when the app starts
+
+
 if __name__ == "__main__":
     random_string = generate_random_string()
+    # Start the periodic task in a separate thread
+    thread = threading.Thread(target=log_output, daemon=True)
+    thread.start()
     # Start FastAPI in the main thread
     start_fastapi()
 
