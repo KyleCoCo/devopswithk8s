@@ -1,6 +1,6 @@
-docker build . -t fastapi-app:0.3
+docker build . -t fastapi-app:0.6
 
-k3d image import fastapi-app:0.3
+k3d image import fastapi-app:0.6
 
 # kubectl create deployment fastapi-app --image=fastapi-app:0.2
 
@@ -11,7 +11,12 @@ k3d image import fastapi-app:0.3
 
 # k3d cluster create --port 8082:30080@agent:0 8083:320081@agent:0 -p 8081:80@loadbalancer --agents 2
 
+docker exec k3d-k3s-default-agent-1 mkdir -p /tmp/fastapi-app
 
-kubectl apply -f ./manifests/
+kubectl delete deployment.apps fastapi-app-dep
+
+kubectl apply -R -f ./manifests/
+
+sleep 5
 
 curl http://127.0.0.1:8081/

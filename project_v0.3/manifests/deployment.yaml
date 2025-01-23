@@ -12,6 +12,13 @@ spec:
       labels:
         app: fastapi-app
     spec:
+      volumes:
+        - name: shared-fastapi-volume
+          persistentVolumeClaim:
+            claimName: fastapi-pv-claim
       containers:
         - name: fastapi-app
-          image: fastapi-app:0.3
+          image: fastapi-app:0.6
+          volumeMounts:
+          - name: shared-fastapi-volume
+            mountPath: /usr/fastapi-app/

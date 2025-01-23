@@ -13,4 +13,32 @@ spec:
                 name: fastapi-svc
                 port:
                   number: 2347
+          - path: /show
+            pathType: Prefix
+            backend:
+              service:
+                name: fastapi-svc
+                port:
+                  number: 2347
+          - path: /download
+            pathType: Prefix
+            backend:
+              service:
+                name: fastapi-svc
+                port:
+                  number: 2347
+          - path: /downloaded_images
+            pathType: Prefix
+            backend:
+              service:
+                name: fastapi-svc
+                port:
+                  number: 2347
+          - path: /photo
+            pathType: Prefix
+            backend:
+              service:
+                name: fastapi-svc
+                port:
+                  number: 2347      
 
