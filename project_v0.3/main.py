@@ -10,6 +10,8 @@ import uvicorn
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from starlette.requests import Request
+from pydantic import BaseModel
+
 
 import uvicorn
 
@@ -45,6 +47,24 @@ def read_html(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
+# In-memory "database" for todos
+todos = ["TODO 1", "TODO 2"]
+
+class TodoItem(BaseModel):
+    todo: str
+
+@app.get("/todos")
+async def get_todos():
+    """Return a list of todos."""
+    return {"todos": todos}
+
+@app.post("/add_todo")
+async def add_todo(item: TodoItem):
+    """Add a todo to the list."""
+    if len(item.todo) > 140:
+        return {"error": "Todo cannot exceed 140 characters"}
+    todos.append(item.todo)
+    return {"todos": todos}
 
 # Function to check image's existence and age
 def is_image_valid() -> bool:

@@ -41,4 +41,20 @@ spec:
                 name: fastapi-svc
                 port:
                   number: 2347      
+          - path: /todos
+            pathType: Prefix
+            backend:
+              service:
+                name: fastapi-svc
+                port:
+                  number: 2347      
+          - path: /add_todo
+            pathType: Prefix
+            backend:
+              service:
+                name: fastapi-svc
+                port:
+                  number: 2347      
+
+
 

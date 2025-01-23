@@ -7,10 +7,24 @@
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-    <h1>Welcome to FastAPI!</h1>
-    <p>This is a simple page served using FastAPI.</p>
-    <img src="/photo" alt="Downloaded Image" style="max-width:100%; height:auto;" />
+    <h1>Todo List with Image Viewer</h1>
+    
+    <img src="/photo" alt="Downloaded Image" style="max-width:100px; height:100px;" />
+
+    <!-- Todo input and button -->
+    <div>
+        <input type="text" id="todoInput" placeholder="Enter a todo (max 140 characters)" maxlength="140" />
+        <button id="addTodoButton" disabled>Add Todo</button>
+    </div>
+
+    <!-- Todo list -->
+    <h2>Todo List</h2>
+    <ul id="todoList">
+        
+    </ul>
+    <script src="/static/js/todo_script.js"></script>
 </body>
+
 </html>
 
 

@@ -18,7 +18,7 @@ spec:
             claimName: fastapi-pv-claim
       containers:
         - name: fastapi-app
-          image: fastapi-app:0.6
+          image: fastapi-app:0.7
           volumeMounts:
           - name: shared-fastapi-volume
             mountPath: /usr/fastapi-app/
