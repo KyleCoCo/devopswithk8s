@@ -18,14 +18,20 @@ spec:
         - name: shared-pingpong-image
           persistentVolumeClaim:
             claimName: ping-pong-pv-claim
+        - name: foo-image
+          configMap:
+            name: log-output-configmap
       containers:
         - name: read-log
-          image: read-log:1.5
+          image: read-log:1.6
           volumeMounts: # Mount volume
           - name: shared-image
             mountPath: /usr/log/
           - name: shared-pingpong-image
             mountPath: /usr/log/pingpong/
+          - name: foo-image
+            readOnly: true
+            mountPath: /etc/foo
         - name: write-log
           image: write-log:1.1
           volumeMounts: # Mount volume

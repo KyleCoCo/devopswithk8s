@@ -14,18 +14,32 @@ import os
 app = FastAPI()
 # PINGPONG_GET = "http://127.0.0.1:8081/pingpong"
 PINGPONG_GET = "http://ping-pong-svc:2348/pingpong"
+INFORMATION_FILE = "/etc/foo/information.txt"
 
 @app.get("/status")
 async def get_status():
-    global random_string
-    current_time = get_current_time() 
-    pingpong_count = ""
-    # Read content from a pod
-    response = requests.get(PINGPONG_GET, stream=True)
-    if response.status_code == 200:
-        pingpong_count = response.content.decode()
-    pingpong_count = pingpong_count[6:]
-    return get_out_put(current_time) + ".\nPing / Pongs: " + pingpong_count
+    try: 
+        global random_string
+        current_time = get_current_time() 
+        pingpong_count = ""
+        # Read content from a pod
+        response = requests.get(PINGPONG_GET, stream=True)
+        if response.status_code == 200:
+            pingpong_count = response.content.decode()
+        pingpong_count = pingpong_count[6:]
+        information_content = ""
+        # Read content from a file
+        with open(INFORMATION_FILE, 'r') as file:
+            information_content = file.read()
+        return "file content: this text is from file\nenv variable: " + \
+                information_content + "\n" + \
+                get_out_put(current_time) + ".\n" + \
+                "Ping / Pongs: " + pingpong_count
+    except Exception as e:
+        return JSONResponse(content={
+            "error": str(e)
+        })
+
 
 
 @app.get("/readlog")
@@ -45,8 +59,8 @@ async def read_log():
             "log_content": log_content
         })
     except Exception as e:
-        JSONResponse(content={
-            "error": e
+        return JSONResponse(content={
+            "error": str(e)
         })
 
 random_string = ""
