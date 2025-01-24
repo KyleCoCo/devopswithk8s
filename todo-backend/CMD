@@ -1,0 +1,11 @@
+docker build . -t todo-backend:0.1
+
+k3d image import todo-backend:0.1
+
+kubectl delete deployment.apps todo-backend-dep
+
+kubectl apply -R -f ./manifests/
+
+sleep 5
+
+curl http://127.0.0.1:8081/todos

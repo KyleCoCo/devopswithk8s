@@ -47,25 +47,6 @@ def read_html(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
-# In-memory "database" for todos
-todos = ["TODO 1", "TODO 2"]
-
-class TodoItem(BaseModel):
-    todo: str
-
-@app.get("/todos")
-async def get_todos():
-    """Return a list of todos."""
-    return {"todos": todos}
-
-@app.post("/add_todo")
-async def add_todo(item: TodoItem):
-    """Add a todo to the list."""
-    if len(item.todo) > 140:
-        return {"error": "Todo cannot exceed 140 characters"}
-    todos.append(item.todo)
-    return {"todos": todos}
-
 # Function to check image's existence and age
 def is_image_valid() -> bool:
     if os.path.exists(IMAGE_PATH):
