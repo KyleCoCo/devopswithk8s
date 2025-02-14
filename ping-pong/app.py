@@ -3,23 +3,16 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 import uvicorn
 import os
+from counter import get_next_counter, reset_sequence
+
 
 app = FastAPI()
-pingpong_count_file = "/usr/log/pingpong/count.txt"
-os.makedirs(os.path.dirname(pingpong_count_file), exist_ok=True)
 
-
-pingpong_count = 0
 
 @app.get("/pingpong")
 async def pingpong():
     try:
-        global pingpong_count
-        count = pingpong_count
-        # Open the file in write mode ('w') or append mode ('a') if you don't want to overwrite
-        with open(pingpong_count_file, 'w') as file:
-            file.write(f"{count}\n")
-        pingpong_count += 1
+        count = get_next_counter()
         # Return the status as JSON
         return f"pong {count}"
     except Exception as e:
@@ -28,8 +21,7 @@ async def pingpong():
 
 @app.get("/reset_pingpong")
 async def reset():
-    global pingpong_count
-    pingpong_count = 0
+    reset_sequence(0)
     # Return the status as JSON
     return JSONResponse(content={
         "success": True

@@ -1,2 +1,5 @@
 fastapi
 uvicorn
+greenlet
+sqlalchemy
+psycopg2

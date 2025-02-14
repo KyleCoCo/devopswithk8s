@@ -67,8 +67,6 @@ random_string = ""
 log_file = "/usr/log/log.txt"
 # Create any missing directories
 os.makedirs(os.path.dirname(log_file), exist_ok=True)
-pingpong_count_file = "/usr/log/pingpong/count.txt"
-os.makedirs(os.path.dirname(pingpong_count_file), exist_ok=True)
 
 def generate_random_string():
     """Generates a random UUID-style string."""

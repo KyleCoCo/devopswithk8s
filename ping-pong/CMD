@@ -1,6 +1,6 @@
-docker build . -t ping-pong:1.2
+docker build . -t ping-pong:1.4
 
-k3d image import ping-pong:1.2
+k3d image import ping-pong:1.4
 
 
 kubectl delete deployments.apps ping-pong-dep

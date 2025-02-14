@@ -6,6 +6,11 @@ WORKDIR /usr/src/app
 
 COPY . .
 
+RUN apt update
+
+RUN apt install build-essential -y
+RUN apt install python3-dev -y 
+RUN apt install libpq-dev -y
 
 
 # Install any needed dependencies

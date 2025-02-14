@@ -18,7 +18,7 @@ spec:
           claimName: ping-pong-pv-claim
       containers:
         - name: ping-pong
-          image: ping-pong:1.2
+          image: ping-pong:1.4
           volumeMounts:
           - name: shared-pingpong-image
             mountPath: /usr/log/pingpong
