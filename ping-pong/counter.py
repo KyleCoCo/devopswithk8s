@@ -1,7 +1,12 @@
+import os
 from sqlalchemy import create_engine, text
 
+
+# Retrieve the encrypted password from the environment variable
+postgres_password = os.getenv('POSTGRES_PASSWORD')
+
 # Database connection string (modify with your credentials)
-DATABASE_URL = "postgresql://user:password@postgres/mydatabase"
+DATABASE_URL = "postgresql://user:{0}@postgres/mydatabase".format(postgres_password)
 
 # Create engine
 engine = create_engine(DATABASE_URL)

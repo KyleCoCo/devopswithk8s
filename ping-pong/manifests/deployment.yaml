@@ -18,7 +18,14 @@ spec:
           claimName: ping-pong-pv-claim
       containers:
         - name: ping-pong
-          image: ping-pong:1.4
+          image: ping-pong:1.5
           volumeMounts:
           - name: shared-pingpong-image
             mountPath: /usr/log/pingpong
+          env:
+          - name: POSTGRES_PASSWORD # ENV name passed to container
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: POSTGRES_PASSWORD # ENV name in the secret
+

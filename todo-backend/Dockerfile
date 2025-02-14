@@ -7,6 +7,11 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
+RUN apt update
+
+RUN apt install build-essential python3-dev libpq-dev -y 
+
+
 # Install any needed dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 

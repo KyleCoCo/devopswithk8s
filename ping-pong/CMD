@@ -1,9 +1,14 @@
-docker build . -t ping-pong:1.4
+docker build . -t ping-pong:1.5
 
-k3d image import ping-pong:1.4
+k3d image import ping-pong:1.5
 
+kubens pingpong
 
 kubectl delete deployments.apps ping-pong-dep
+
+export SOPS_AGE_KEY_FILE=/root/key.txt
+
+sops --decrypt secret/postgres-secret.enc.yaml | kubectl apply -f -
 
 kubectl apply  -R -f manifests/
 
