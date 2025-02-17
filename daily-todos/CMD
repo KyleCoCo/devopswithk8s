@@ -1,0 +1,16 @@
+
+#!/bin/bash
+
+# set -e
+
+docker build . -t daily-todo:1.1
+
+k3d image import daily-todo:1.1
+
+
+kubens todos
+
+kubectl delete cronjobs.batch cron-todo
+
+kubectl apply -R -f ./manifests/
+
