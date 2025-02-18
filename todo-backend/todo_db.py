@@ -1,4 +1,4 @@
-import os
+import os, logging
 from sqlalchemy import create_engine, text
 
 # Retrieve the encrypted password from the environment variable
@@ -10,6 +10,8 @@ DB_URL = "postgresql://user:{0}@postgres/mydatabase".format(postgres_password)
 # Create an engine (which manages connections)
 engine = create_engine(DB_URL, pool_size=5, max_overflow=10)  # Adjust pool settings as needed
 
+logger = logging.getLogger(__name__)
+
 # Function to insert a record into 'todo_list'
 def insert_todo(operator, content):
     try:
@@ -19,10 +21,10 @@ def insert_todo(operator, content):
                 {"operator": operator, "content": content}
             )
             pk = result.scalar()  # Get the generated primary key
-            print(f"Inserted record with PK: {pk}")
+            logger.info(f"Inserted record with PK: {pk}")
             conn.commit()
     except Exception as e:
-        print(f"Error inserting todo: {e}")
+        logger.error("Error inserting todo", e)
 
 # Function to retrieve all records from 'todo_list'
 def get_all_todos():
@@ -32,5 +34,5 @@ def get_all_todos():
             rows = result.fetchall()  # Return all rows
             return [row[0] for row in rows]
     except Exception as e:
-        print(f"Error fetching todos: {e}")
+        logger.error("Error fetching todos", e)
         return []
